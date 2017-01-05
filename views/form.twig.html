@@ -1,0 +1,40 @@
+<form method="post" action="{{ path(form.destination) ~ '?' ~ global.request.queryString }}">
+	<input type="hidden" name="origin" id="origin" value="{{ form.origin }}"/>
+	<ul>
+		{% for id, field in form.fields %}
+		{% if field.type == 'username' %}
+		{% set type = 'text' %}
+		{% elseif field.type == 'bool' %}
+		{% set type = 'number' %}
+		{% elseif field.type == 'address' %}
+		{% set type = 'text' %}
+		{% else %}
+		{% set type = field.type %}
+		{% endif %}
+
+		{% if field.readonly %}
+		{% set readonly = 'readonly="readonly"' %}
+		{% else %}
+		{% set readonly = '' %}
+		{% endif %}
+
+		{% if field.required %}
+		{% set required = 'required="required"' %}
+		{% else %}
+		{% set required = '' %}
+		{% endif %}
+		<li>
+			{% if not field.message == '' %}
+			<p>{{ field.message }}</p>
+			{% endif %}
+			<p><label for="{{ id }}">{{ field.label }}:</label> <input type="{{ type }}" name="{{ id }}" id="{{ id }}" {{ required }} {{ readonly }} value="{{ field.value }}" /></p>
+			{% if not field.note == '' %}
+			<p>{{ field.note }}</p>
+			{% endif %}
+		</li>
+		{% endfor %}
+		<li>
+			<input type="submit">
+		</li>
+	</ul>
+</form>

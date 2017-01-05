@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>Title</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+		{% block stylesheets %}
+		<link rel="stylesheet" href="{{ global.request.basePath }}/css/style.css">
+		{% endblock %}
+		{% block javascripts %}
+		<!-- Include the HTML5 shiv print polyfill for Internet Explorer browsers 8 and below -->
+		<!--[if lt IE 9]><script src="{{ global.request.basePath }}/js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+		{% endblock %}
+	</head>
+	<body>
+
+		<header role="banner">
+			<h1><abbr title="Yet Another OpenID Connect Operator">YAOCO</abbr></h1>
+		</header>
+
+		<nav role="navigation">
+			<ul>
+				<li><a href="{{ path( 'index' ) }}">Home</a></li>
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<li><a href="{{ path( 'yaoco.routes.aboutme' ) }}">Profile</a></li>
+				<li><a href="{{ path( 'server_logout' ) }}">logout</a></li>
+				{% else %}
+				<li><a href="{{ path( 'yaoco.routes.createme' ) }}">Create a new user</a></li>
+				<li><a href="{{ path( 'login' ) }}">login</a></li>
+				{% endif %}
+				<li><a href="{{ path( 'yaoco.routes.docs' ) }}">Docs</a></li>
+			</ul>
+		</nav>
+
+		<div class="wrap">
+
+			<main role="main">
+
+			<section>
+
+				{% block content %}
+				{% endblock %}
+
+			</section>
+
+			</main>
+
+		</div>
+
+		<footer role="contentinfo">
+
+			<address>
+				<p>For further information, please visit <a href="https://github.com/eikekuehn/YAOCO-OpenID-Connect-Provider">YAOCO at GitHub</a>.</p>
+			</address>
+
+			<small>Copyright &copy; <time datetime="2017">2017</time></small>
+		</footer>
+	</body>
+</html>

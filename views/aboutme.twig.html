@@ -1,0 +1,32 @@
+{% extends "base.twig.html" %}
+
+{% block content %}
+<h2>Profile of {{ name }}</h2>
+
+<h3>Information we have in store about you:</h3>
+
+{% include 'form.twig.html' %}
+
+<h3>Authorized Clients</h3>
+
+{% for client, scopes in clients  %}
+
+<h4>{{ client }}</h4>
+
+<ul>
+	{% for scope, claims in scopes  %}
+	<li>
+		{{ scope }}
+		<ul>
+			{% for claim, detail in claims %}
+			<li>{{ claim }}: {{ detail }}</li>
+			{% endfor %}
+		</ul>
+	</li>
+	{% endfor %}
+</ul>
+
+{% endfor %}
+<h2>
+
+	{% endblock %}

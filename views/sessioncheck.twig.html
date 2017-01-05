@@ -1,0 +1,54 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>OpenID Connect Sandbox</title>
+		<script src="https://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/sha256.js"></script>
+		<script language="JavaScript" type="text/javascript">
+window.addEventListener("message",receiveMessage, false);
+function receiveMessage(e){
+	var origin = "http://www8322u.sakura.ne.jp"; // origin from client_id
+	if ( e.origin !== origin ) {
+		return;
+	}
+
+	var stat;
+	var client_id = "77596671429810a5f9fcaf7404216f70f29cd40c"; // from ID Token
+	var salt = getSaltFromData(e.data); // from e.data
+	var opss = getOpssFromCookie(); // from Cookie or use API access
+	var ss = CryptoJS.SHA256(client_id + origin + opss + salt) + "." + salt;  
+	if (e.data == ss) {
+		stat = 'unchanged';
+	} else {
+		stat = 'changed';
+	}
+	e.source.postMessage(stat, e.origin);
+};
+
+function getSaltFromData(data){
+	var salt = "";
+	var split_data = data.split(".");
+	if(split_data.length == 2){
+		salt = split_data[1];
+	}
+	return salt;
+}
+
+function getOpssFromCookie(){
+	var theName = "PHPSESSID=";
+	var theCookie = document.cookie+";";
+	var start = theCookie.indexOf(theName);
+	if (start != -1)
+	{
+		var end = theCookie.indexOf(";",start);
+		return unescape(theCookie.substring(start+theName.length,end));
+	}
+	return "";
+}
+
+console.log( getOpssFromCookie( ) );
+		</script>
+	</head>
+	<body>
+		This is OpenID Connect Session Management op_iframe URL.
+	</body>
+</html>

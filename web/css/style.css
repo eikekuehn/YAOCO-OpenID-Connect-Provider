@@ -1,0 +1,13 @@
+body {
+	color: #333;
+}
+
+header, footer {
+}
+
+main {
+	max-width: 60em;
+	width: 80%;
+	background-color: #FFF;
+	margin: 2em auto;
+}

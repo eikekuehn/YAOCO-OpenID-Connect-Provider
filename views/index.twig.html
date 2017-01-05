@@ -1,0 +1,14 @@
+{% extends "base.twig.html" %}
+
+{% block content %}
+<ul>
+	{% for name,route in routes if route.display %}
+	<li><a href="{{ route.route }}">{{ name }}</a></li>
+	{% endfor %}
+	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+	<li><a href="{{ path( 'server_logout' ) }}">logout</a></li>
+	{% else %}
+	<li><a href="{{ path( 'login' ) }}">login</a></li>
+	{% endif %}
+</ul>
+{% endblock %}
