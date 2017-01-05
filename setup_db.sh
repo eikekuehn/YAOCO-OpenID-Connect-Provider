@@ -2,7 +2,8 @@
 
 host='localhost'
 access_from='%'
-
+# User with GRANT priviliges
+# will not be used by the application
 root_user='root'
 root_pw='123'
 #
@@ -100,7 +101,7 @@ function database_oauth2_create {
 	ALTER TABLE ${oauth2_prefix}authorization_codes ADD id_token VARCHAR(1000)  NULL  DEFAULT NULL;
 	INSERT INTO ${oauth2_prefix}clients (client_id, client_secret, redirect_uri) VALUES ("testclient", "testpass", "http://pflaume2/oic/client/client.php");
 	INSERT INTO ${oauth2_prefix}clients (client_id, client_secret, redirect_uri) VALUES ("testclient2", "testpass", "http://192.168.56.101/oic/client/client.php");
-	INSERT INTO ${oauth2_prefix}clients (client_id, client_secret, redirect_uri) VALUES ("testclient3", "???", "http://oidc-client-test.pixelwoelkchen.de/index.php");
+
 EOF
 }
 
